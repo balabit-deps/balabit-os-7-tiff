@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# Enable all hardening options.
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic -D_REENTRANT
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+# Variables used by cdbs
+DEB_COMPRESS_EXCLUDE = html
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	  --with-docdir="\$${prefix}/share/doc/libtiff-doc" \
+	  --libdir="\$${prefix}/lib/$(DEB_HOST_MULTIARCH)" \
+	  --includedir="\$${prefix}/include/$(DEB_HOST_MULTIARCH)" \
+	  --enable-ld-version-script
+
+override_dh_install:
+	dh_install --list-missing -X.la
+	# tiffgt is in libtiff-opengl so libtiff-tools doesn't have to have
+	# all the X and opengl dependencies.
+	rm -f debian/libtiff-tools/usr/bin/tiffgt
+	rm -f debian/libtiff-tools/usr/share/man/man1/tiffgt.1*
+	# leftovers
+	rm -f debian/libtiff-doc/usr/share/doc/libtiff-doc/html/man/thumbnail.1*
+	rm -f debian/libtiff-tools/usr/share/man/man1/thumbnail.1*
+	rm -f debian/libtiff-doc/usr/share/doc/libtiff-doc/html/man/rgb2ycbcr.1*
+	rm -f debian/libtiff-tools/usr/share/man/man1/rgb2ycbcr.1*
+
+%:
+	dh $@ --with autoreconf
+
+.PHONY: override_dh_auto_configure override_dh_install
