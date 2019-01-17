@@ -1,3 +1,27 @@
+tiff (4.0.9-5ubuntu0.1) bionic-security; urgency=medium
+
+  * SECURITY UPDATE: buffer overflow in LZWDecodeCompat
+    - debian/patches/CVE-2018-8905.patch: fix logic in libtiff/tif_lzw.c.
+    - CVE-2018-8905
+  * SECURITY UPDATE: DoS in TIFFWriteDirectorySec()
+    - debian/patches/CVE-2018-10963.patch: avoid assertion in
+      libtiff/tif_dirwrite.c.
+    - CVE-2018-10963
+  * SECURITY UPDATE: multiple overflows
+    - debian/patches/CVE-2018-1710x.patch: Avoid overflows in
+      tools/pal2rgb.c, tools/tiff2bw.c, tools/ppm2tiff.c.
+    - CVE-2018-17100
+    - CVE-2018-17101
+  * SECURITY UPDATE: JBIGDecode out-of-bounds write
+    - debian/patches/CVE-2018-18557.patch: fix issue in libtiff/tif_jbig.c,
+      libtiff/tif_read.c.
+    - CVE-2018-18557
+  * SECURITY UPDATE: NULL pointer dereference in LZWDecode
+    - debian/patches/CVE-2018-18661.patch: add checks to tools/tiff2bw.c.
+    - CVE-2018-18661
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Thu, 17 Jan 2019 09:13:55 -0500
+
 tiff (4.0.9-5) unstable; urgency=high
 
   * Fix CVE-2017-11613: avoid memory exhaustion in
