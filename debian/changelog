@@ -1,3 +1,19 @@
+tiff (4.0.9-5ubuntu0.3) bionic-security; urgency=medium
+
+  * SECURITY UPDATE: incorrect integer overflow checks
+    - debian/patches/CVE-2019-14973.patch: fix implementation-defined
+      behaviour in libtiff/tif_aux.c, libtiff/tif_getimage.c,
+      libtiff/tif_luv.c, libtiff/tif_pixarlog.c, libtiff/tif_read.c,
+      libtiff/tif_strip.c, libtiff/tif_tile.c, libtiff/tiffiop.h.
+    - debian/libtiff5.symbols: added new symbols.
+    - CVE-2019-14973
+  * SECURITY UPDATE: heap-based buffer overflow via crafted RGBA image
+    - debian/patches/CVE-2019-17546.patch: fix integer overflow in
+      libtiff/tif_getimage.c.
+    - CVE-2019-17546
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 16 Oct 2019 09:44:21 -0400
+
 tiff (4.0.9-5ubuntu0.2) bionic-security; urgency=medium
 
   * SECURITY UPDATE: heap over-read in TIFFWriteScanline
